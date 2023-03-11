@@ -5,33 +5,37 @@ import Square from './square';
  
 const Board=()=>
 {
-     const handelClick=(index)=>{
-        if(index!==null){return}
-        console.log(index)
+    
+    const [state,setState]=useState(Array(9).fill(null));
+    const [Xturn,setTurn]=useState(true);
+    const [count,setCount]=useState(0)
+
+    const handelClick=(index)=>{
+        if (state[index]!==null){return;}
+        setCount(count+1);
         var copyState=[...state];
         copyState[index]=Xturn?"X":"O"
         setState(copyState);
         setTurn(!Xturn);
 
      }
-    const [state,setState]=useState(Array(9).fill(null));
-    const [Xturn,setTurn]=useState(true);
-    console.log(state)
+
 
     const checkWinner=()=>{
     const winnerLogic=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
     for (let logic of winnerLogic){
         let [a,b,c]=logic;
-        if (state[a]!==null && state[a]==state[b] && state[a]==state[c] ){return(state[a])};
-    }
+        if (state[a]!==null && state[a]==state[b] && state[a]==state[c] ){return(state[a]+` won the Game`)};}
+        if(count==9){return("Its a Draw")}
     }
   const iswinner=checkWinner();
   const handelRefresh=()=>{
+    setCount(0)
     setState(Array(9).fill(null));
   }
   return (
     <div className='board-container'>
-        {iswinner?<h3>{iswinner} won the Game <button onClick={handelRefresh}>Play Again</button></h3>:
+        {iswinner?<h3>{iswinner} <button onClick={handelRefresh}>Play Again</button></h3>:
         <>
         <h3>Player {Xturn?"X":"O"} Turn</h3>
         <div className='board-row'>
