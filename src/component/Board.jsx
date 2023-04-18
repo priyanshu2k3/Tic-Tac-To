@@ -35,9 +35,9 @@ const Board=()=>
   }
   return (
     <div className='board-container'>
-        {iswinner?<h3>{iswinner} <button onClick={handelRefresh}>Play Again</button></h3>:
+        {iswinner?<h3>{iswinner} <button id='button' onClick={handelRefresh}>Play Again</button></h3>:
         <>
-        <h3>Player {Xturn?"X":"O"} Turn</h3>
+        <h1>Player {Xturn?"X":"O"} Turn</h1>
         <div className='board-row'>
             <Square onClick={()=>{handelClick(0)}} value={state[0]}/>
             <Square onClick={()=>{handelClick(1)}} value={state[1]}/>
